@@ -65,7 +65,7 @@ This should be ok for most cases, but if you are working on a Windows machine an
 Also, imagine that `myProperty` already had `my value` in the original file. It will end up producing no changes to your content, but the file will still be different.
 If you use git, you will see a file change.
 
-You may even try to do prevent writing the file if it has no changes, like:
+You may even try to prevent writing the file if it has no changes, like:
 ```js
 
 const contentString = fs.readFileSync(filePath)
@@ -89,7 +89,6 @@ But `result === contentString` would evaluate to false, as the line terminators 
 By using this little tool, you could do:
 
 ```js
-// import the copy function
 import lt from 'line-terminators'
 
 const contentString = fs.readFileSync(filePath)
