@@ -10,41 +10,41 @@ npm i line-terminators
 
 ## Identify line terminators from a string
 ```js
-import { identify } from 'line-terminators'
+import lt from 'line-terminators'
 
-identify('abc\ndef') // => "LF"
+lt.identify('abc\ndef') // => "LF"
 
-identify('abc\r\ndef') // => "CRLF"
+lt.identify('abc\r\ndef') // => "CRLF"
 
-identify('abcdef') // => "NONE"
+lt.identify('abcdef') // => "NONE"
 ```
 
 ## Convert a string's line terminators to another format
 ```js
-import { convert } from 'line-terminators'
+import lt from 'line-terminators'
 
-convert('abc\ndef', 'CRLF') // => "abc\r\ndef"
+lt.convert('abc\ndef', 'CRLF') // => "abc\r\ndef"
 
-convert('abc\r\ndef', 'LF') // => "abc\ndef"
+lt.convert('abc\r\ndef', 'LF') // => "abc\ndef"
 
 // Also works with null or undefined instead of 'NONE'
 
-convert('abc\r\ndef\r\nghi', 'NONE') // => "abcdefghi"
+lt.convert('abc\r\ndef\r\nghi', 'NONE') // => "abcdefghi"
 ```
 
 ## Copy the line terminators from a string into another
 ```js
-import { copy } from 'line-terminators'
+import lt from 'line-terminators'
 
-copy('abc\r\ndef\r\nghi', 'tuv\nxyz') // => "tuv\r\nxyz"
+lt.copy('abc\r\ndef\r\nghi', 'tuv\nxyz') // => "tuv\r\nxyz"
 
-copy('abc\ndef\nghi', 'tuv\r\nxyz') // => "tuv\nxyz"
+lt.copy('abc\ndef\nghi', 'tuv\r\nxyz') // => "tuv\nxyz"
 
 // Keeps line terminators when the source string has no line terminators
 
-copy('abcdefghi', 'tuv\nxyz') // => "tuv\nxyz"
+lt.copy('abcdefghi', 'tuv\nxyz') // => "tuv\nxyz"
 
-copy('abcdefghi', 'tuv\r\nxyz') // => "tuv\r\nxyz"
+lt.copy('abcdefghi', 'tuv\r\nxyz') // => "tuv\r\nxyz"
 ```
 
 ## Real-life use case
@@ -90,7 +90,7 @@ By using this little tool, you could do:
 
 ```js
 // import the copy function
-import { copy } from 'line-terminators'
+import lt from 'line-terminators'
 
 const contentString = fs.readFileSync(filePath)
 
@@ -101,7 +101,7 @@ contentObject.myProperty = 'my value'
 let result = JSON.stringify(contentObject, null, 2)
 
 // copy the line terminators from contentString to result
-result = copy(contentString, result)
+result = lt.copy(contentString, result)
 
 if (result === contentString) {
   return
