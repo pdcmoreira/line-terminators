@@ -1,6 +1,6 @@
 {
   "name": "line-terminators",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Identify and convert line terminators from strings",
   "main": "src/index.js",
   "scripts": {

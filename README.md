@@ -27,10 +27,15 @@ lt.convert('abc\ndef', 'CRLF') // => "abc\r\ndef"
 
 lt.convert('abc\r\ndef', 'LF') // => "abc\ndef"
 
-// Also works with null or undefined instead of 'NONE'
+// It will keep the original line terminators if the target is NONE
+lt.convert('abc\r\ndef\r\nghi', 'NONE') // => "abc\r\ndef\r\nghi"
 
-lt.convert('abc\r\ndef\r\nghi', 'NONE') // => "abcdefghi"
+// If you want it to delete the line terminators when the target is NONE,
+// then pass the third parameter as `true`
+
+lt.convert('abc\r\ndef\r\nghi', 'NONE', true) // => "abcdefghi"
 ```
+Note: Passing `null` or `undefined` works the same as `'NONE'`
 
 ## Copy the line terminators from a string into another
 ```js
@@ -45,6 +50,12 @@ lt.copy('abc\ndef\nghi', 'tuv\r\nxyz') // => "tuv\nxyz"
 lt.copy('abcdefghi', 'tuv\nxyz') // => "tuv\nxyz"
 
 lt.copy('abcdefghi', 'tuv\r\nxyz') // => "tuv\r\nxyz"
+
+// If you want it to delete the line terminators when the source string has no
+// line terminators, then pass the third parameter as `true`
+
+lt.copy("abcdefghi", "tuv\nxyz", true) // => "tuvxyz"
+lt.copy("abcdefghi", "tuv\r\nxyz", true) // => "tuvxyz"
 ```
 
 ## Real-life use case
@@ -99,7 +110,7 @@ contentObject.myProperty = 'my value'
 
 let result = JSON.stringify(contentObject, null, 2)
 
-// copy the line terminators from contentString to result
+// Copy the line terminators from contentString to result
 result = lt.copy(contentString, result)
 
 if (result === contentString) {
